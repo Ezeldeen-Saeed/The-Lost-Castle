@@ -1,0 +1,125 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4omk84qitkb0"]
+
+[ext_resource type="Texture2D" uid="uid://dvrxog4vpkmsu" path="res://assests/dark-fantasy-pixel-art-v0-4g50ny8bw19c1.png" id="1_v8fun"]
+
+[sub_resource type="GDScript" id="GDScript_keofg"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func _on_button_pressed():
+	get_tree().change_scene_to_file(\"res://scenes/Main.tscn\")
+
+
+func _on_button_2_pressed():
+	get_tree().quit()
+"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btdok"]
+texture = ExtResource("1_v8fun")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4kkm7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygqhl"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldicb"]
+bg_color = Color(0.0139665, 0.00160371, 9.40054e-10, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_keofg")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_btdok")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 565.0
+offset_top = 269.0
+offset_right = 1007.0
+offset_bottom = 352.0
+theme_override_font_sizes/font_size = 60
+text = "The Lost Castle"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -551.0
+offset_top = 126.0
+offset_right = -17.0
+offset_bottom = 381.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+alignment = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 1
+theme_override_constants/h_separation = 100
+theme_override_constants/icon_max_width = 0
+theme_override_font_sizes/font_size = 59
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4kkm7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ygqhl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ldicb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ldicb")
+text = "Play Game"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 1
+theme_override_constants/h_separation = 100
+theme_override_constants/icon_max_width = 0
+theme_override_font_sizes/font_size = 59
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4kkm7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ygqhl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ldicb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ldicb")
+text = "Quit Game
+"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

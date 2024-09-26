@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://dkjikfiwbsqov"]
+
+[ext_resource type="Texture2D" uid="uid://birmm6gmkp64" path="res://assests/Torch Animated.png" id="1_57mw5"]
+[ext_resource type="Texture2D" uid="uid://bpxj6nvhon67t" path="res://assests/gradient-white-circleon-black-background-pkyce0ehkiau606q.png.jpeg" id="2_v6ixi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6dnx"]
+atlas = ExtResource("1_57mw5")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73tpt"]
+atlas = ExtResource("1_57mw5")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atrk8"]
+atlas = ExtResource("1_57mw5")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mb0sb"]
+atlas = ExtResource("1_57mw5")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_no77t"]
+atlas = ExtResource("1_57mw5")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20lfd"]
+atlas = ExtResource("1_57mw5")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxffd"]
+atlas = ExtResource("1_57mw5")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhxm1"]
+atlas = ExtResource("1_57mw5")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cqi81"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6dnx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73tpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atrk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mb0sb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_no77t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20lfd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxffd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhxm1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8w8fa"]
+radius = 87.0
+
+[node name="Torsh" type="StaticBody2D"]
+collision_layer = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cqi81")
+autoplay = "default"
+frame_progress = 0.956327
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+z_index = 1
+energy = 2.0
+texture = ExtResource("2_v6ixi")
+texture_scale = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8w8fa")

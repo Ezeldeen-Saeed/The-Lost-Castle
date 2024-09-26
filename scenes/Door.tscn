@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl2gegvlkjb37"]
+
+[ext_resource type="Script" path="res://scenes/door.gd" id="1_0lmnp"]
+[ext_resource type="Texture2D" uid="uid://cs2hg0hw00qhp" path="res://assests/Haunted House Tile Set.png" id="1_2xvq8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_muw7d"]
+radius = 80.0
+height = 615.385
+
+[node name="Door" type="Area2D" groups=["doors"]]
+z_index = 1
+scale = Vector2(0.05, 0.05)
+collision_layer = 2
+script = ExtResource("1_0lmnp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2xvq8")
+region_enabled = true
+region_rect = Rect2(170.893, 47.7045, 41.4844, 80.4021)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.25, 0.13)
+shape = SubResource("CapsuleShape2D_muw7d")

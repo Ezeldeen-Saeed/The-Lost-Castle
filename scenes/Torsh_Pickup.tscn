@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://hsf3khfjel8c"]
+
+[ext_resource type="Texture2D" uid="uid://cqf3g6wmqsjir" path="res://assests/TNrzxcHk-3mLbODxx6BiEtgaRKYoM6GtzhVgH3PKot4mU0-bzoUR8NljVzXvVm6kjUt_fhVT7dVmxGYpYBQFRw.webp" id="1_xd5fs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_muw7d"]
+radius = 40.0
+height = 240.0
+
+[node name="TorshPackup" type="Area2D" groups=["torshPicks"]]
+z_index = 1
+scale = Vector2(0.05, 0.05)
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xd5fs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_muw7d")

@@ -1,0 +1,112 @@
+extends CharacterBody2D
+
+@onready var sprite = $AnimatedSprite2D
+@onready var ray = $RayCast2D
+@onready var ray2 = $RayCast2D2
+@onready var cooldown_timer = Timer.new()  # Timer for cooldown
+
+var health : int = 2
+var speed : int = 20
+var gravity : int = 2000
+var distance : int = 300
+var direction : int = -1
+var start_position : Vector2
+
+var attacking : bool = false
+var can_attack : bool = true
+var colliderx : bool = false
+
+func _ready():
+	start_position = position
+
+	# Configure and add the cooldown timer to the node tree
+	cooldown_timer.set_wait_time(2.0)  # Cooldown duration in seconds
+	cooldown_timer.set_one_shot(true)
+	add_child(cooldown_timer)
+	cooldown_timer.connect("timeout", Callable(self, "_on_cooldown_finished"))
+
+func _physics_process(delta):
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	else:
+		velocity.y = 0
+
+	# Handle movement and animations
+	if not attacking:
+		# Move the enemy back and forth
+		position.x += direction * speed * delta
+
+		# Flip direction and update sprite
+		if position.x >= start_position.x + distance:
+			direction = -1
+			sprite.flip_h = true
+		elif position.x < start_position.x:
+			direction = 1
+			sprite.flip_h = false
+
+		# Ensure walk animation is playing
+		if not sprite.is_playing() or sprite.animation != "walk":
+			sprite.play("walk")  # Play walk animation if not attacking
+	else:
+		# Print debug message for attack status
+		print("Attacking state active. Playing attack animation.")
+		
+		# Play the attack animation
+		if not sprite.is_playing() or sprite.animation != "attack":
+			print("Starting attack animation")
+			sprite.play("attack")  # Play attack animation if not already playing
+
+	# Check if either ray is colliding
+	var collider = null
+	if ray.is_colliding():
+		collider = ray.get_collider()
+	elif ray2.is_colliding():
+		collider = ray2.get_collider()
+
+	if collider and collider.is_in_group("players"):
+		if collider.light.enabled:
+			# Handle light being on
+			direction = -direction
+			position.x += direction * 40  # Move away from the player
+		else:
+			# Can attack the player
+			if can_attack:
+				# Move towards the player
+				if position.x < collider.position.x:
+					direction = 1
+					sprite.flip_h = false
+				else:
+					direction = -1
+					sprite.flip_h = true
+
+				# Update position
+				position.x += direction * speed * delta
+
+				# Check if within attack range
+				colliderx = position.distance_to(collider.position) <= 30
+				if colliderx:  # Adjust distance for attack range
+					attacking = true
+					collider.health -= 1
+					print("Player health:", collider.health)
+
+					# Start cooldown timer after attack
+					cooldown_timer.start()
+					can_attack = false  # Prevent re-attacking too soon
+				else:
+					attacking = false
+					sprite.play("walk")
+			else:
+				attacking = false
+				sprite.play("walk")
+	else:
+		attacking = false
+		sprite.play("walk")
+
+	move_and_slide()
+
+# Cooldown finished callback
+func _on_cooldown_finished():
+	print("Cooldown finished, can attack again")
+	can_attack = true
+	attacking = false
+	sprite.play("walk")
